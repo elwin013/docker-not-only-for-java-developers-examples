@@ -1,0 +1,25 @@
+FROM eclipse-temurin:21-jdk-noble AS dependencies
+
+WORKDIR /build
+COPY --chmod=0755 mvnw mvnw
+COPY .mvn/ .mvn/
+
+RUN --mount=type=bind,source=pom.xml,target=pom.xml \
+    --mount=type=cache,target=/root/.m2 ./mvnw dependency:go-offline -DskipTests
+
+FROM dependencies AS package
+
+WORKDIR /build
+COPY ./src src/
+RUN --mount=type=bind,source=pom.xml,target=pom.xml \
+    --mount=type=cache,target=/root/.m2  \
+    ./mvnw package -DskipTests
+
+
+FROM eclipse-temurin:21-jre-noble AS final
+
+COPY --from=package /build/target/app-shaded.jar ./app.jar
+
+EXPOSE 7070
+
+ENTRYPOINT [ "java", "-jar", "app.jar" ]

@@ -1,0 +1,5 @@
+services:
+  todos:
+    image: todoapp:latest
+    ports:
+      - "7070:7070"

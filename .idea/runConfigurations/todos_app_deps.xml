@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="todos-app-deps" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="composeProjectName" value="todos-app-deps" />
+        <option name="envFilePath" value="" />
+        <option name="sourceFilePath" value="src/main/docker/docker-compose.deps.yml" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

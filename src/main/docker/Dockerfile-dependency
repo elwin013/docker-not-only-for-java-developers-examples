@@ -1,0 +1,29 @@
+FROM eclipse-temurin:21-jdk-alpine AS dependencies
+
+WORKDIR /build
+COPY --chmod=0755 mvnw mvnw
+COPY .mvn/ .mvn/
+
+RUN --mount=type=bind,source=pom.xml,target=pom.xml \
+    --mount=type=cache,target=/root/.m2 ./mvnw dependency:go-offline dependency:copy-dependencies -Dmdep.useRepositoryLayout=true -DskipTests
+
+FROM dependencies AS package
+
+WORKDIR /build
+COPY ./src src/
+RUN --mount=type=bind,source=pom.xml,target=pom.xml \
+    --mount=type=cache,target=/root/.m2  \
+    ./mvnw package -DskipTests
+
+
+FROM eclipse-temurin:21-jre-alpine AS final
+
+WORKDIR /app
+
+COPY --chmod=0755 ./src/main/docker/entrypoint.sh /app/entrypoint.sh
+COPY --from=dependencies /build/target/dependency /app/dependency
+COPY --from=package /build/target/app.jar /app/app.jar
+
+EXPOSE 7070
+
+ENTRYPOINT [ "./entrypoint.sh" ]

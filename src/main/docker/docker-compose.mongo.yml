@@ -1,0 +1,38 @@
+services:
+  todos:
+    image: todoapp:latest
+    ports:
+      - "7070:7070"
+    command:
+      - "mongo"
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://mongo:27017
+    depends_on:
+      - mongo
+    networks:
+      - todoapp_network
+
+  mongo:
+    image: mongo:7.0
+    container_name: mongodb
+    # Uncomment to store data on host
+#    volumes:
+#      - ./mongo-data:/data/db
+    networks:
+      - todoapp_network
+
+  mongo-express:
+    image: mongo-express:1.0.2
+    container_name: mongo-express
+    depends_on:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+    ports:
+      - "8081:8081"
+    networks:
+      - todoapp_network
+
+networks:
+  todoapp_network:
+    name: todoapp_network

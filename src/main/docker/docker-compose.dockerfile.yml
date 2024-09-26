@@ -1,0 +1,7 @@
+services:
+  todos:
+    build:
+      dockerfile: src/main/docker/Dockerfile-dependency
+      context: ./../../../
+    ports:
+      - "7070:7070"

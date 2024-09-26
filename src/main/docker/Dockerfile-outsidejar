@@ -1,0 +1,9 @@
+FROM eclipse-temurin:21-jre-noble
+
+WORKDIR /app
+
+COPY /target/app-shaded.jar /app/app.jar
+
+EXPOSE 7070
+
+ENTRYPOINT [ "java", "-jar", "app.jar" ]
