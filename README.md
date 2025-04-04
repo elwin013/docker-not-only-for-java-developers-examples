@@ -36,13 +36,15 @@ To build:
 
 To run with CPU/memory limits:
 
-`docker run -it --rm --memory 300m --memory-swap 300m --cpu-period 100000 --cpu-quota 200000 temurin-containeraware`
+`docker run -it --rm --memory 300m --memory-swap 300m --cpu-period 100000 --cpu-quota 200000 --entrypoint /bin/bash temurin-containeraware`
 
 Inside run built jar with:
 
 `java ShowMxBeanCpuAndMemoryInfo`
 
 We can combine it with `-XshowSettings:system` or set explicit number of processors: `-XX:ActiveProcessorCount=4`.
+
+You can also use available makefile.
 
 ## Todos app
 
