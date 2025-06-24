@@ -1,6 +1,6 @@
 # Docker (not only) for Java Developers
 
-Examples for presentation 'Docker (not only) for Java Developer'
+Examples for presentation 'Docker (not only) for Java Developer' ("Docker (nie tylko) dla Java developerów").
 
 ## Alpine figlet example
 
