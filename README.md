@@ -32,11 +32,11 @@ We can still replace the entrypoint and run shell: `docker run -it --entrypoint 
 ## Container aware Java example
 
 To build:
-`docker build . -t temurin-containeraware`
+`docker build . -t openjdk-containeraware`
 
 To run with CPU/memory limits:
 
-`docker run -it --rm --memory 300m --memory-swap 300m --cpu-period 100000 --cpu-quota 200000 --entrypoint /bin/bash temurin-containeraware`
+`docker run -it --rm --memory 300m --memory-swap 300m --cpu-period 100000 --cpu-quota 200000 --entrypoint /bin/bash openjdk-containeraware`
 
 Inside run built jar with:
 
@@ -68,7 +68,7 @@ Used libraries:
 
 All dockerfiles and docker compose files are placed in `src/main/docker`.
 
-Dockerfiles use Java 21 image (Eclipse Temurin).
+Tested with both Oracle OpenJDK 21 images and Temurin one.
 
 ### #1 Simplest docker image with app (shaded) - `Dockerfile-outsidejar`
 
