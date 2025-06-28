@@ -29,7 +29,7 @@ and will replace the `CMD` - e.g. `docker run alpine-figlet I like trains!` will
 
 We can still replace the entrypoint and run shell: `docker run -it --entrypoint "/bin/sh" alpine-figlet`.
 
-## Container aware Java example
+## Container-aware Java example
 
 To build:
 `docker build . -t openjdk-containeraware`
@@ -53,7 +53,7 @@ Simple kind-of todos app that allows to add and remove entries (todos):
 * after marking as done the todo has `done = true`.
 * todo with `done = true` is in done section and can be deleted.
 
-By default app is using port `7070` and can be available at `http://localhost:7070/`.
+By default, app is using port `7070` and can be available at `http://localhost:7070/`.
 
 Used libraries:
 * Javalin - https://javalin.io/
@@ -103,14 +103,14 @@ To build with Eclipse Temurin:
 To run:
 1. `docker run -p 7070:7070 todoapp-naive:latest -it`
 
-### #3 Build app in the docker image with app (shaded, multi stage) - `Dockerfile-shaded`
+### #3 Build app in the docker image with app (shaded, multi-stage) - `Dockerfile-shaded`
 
 Improved version of #2 - uses multiple stages:
 * download and cache dependencies (uses JDK image) in `dependencies` stage.
 * build and package app (uses JDK image) in `package` stage.
 * run app (uses JRE image) in `final` stage.
 
-As a result the final image contains only the app (shaded, uber jar).
+As a result, the final image contains only the app (shaded, uber jar).
 
 Uber jar is created using `maven-shade-plugin` - classes from all dependencies
 are put in the final jar.
@@ -124,7 +124,7 @@ To build with Eclipse Temurin:
 To run:
 1. `docker run -p 7070:7070 todoapp-multistage1:latest -it`
 
-### #4 Build app in the docker image with app (not shaded, multi stage) - `Dockerfile-dependency`
+### #4 Build app in the docker image with app (not shaded, multi-stage) - `Dockerfile-dependency`
 
 Improved version of #3 - stages are the same (`dependencies`, `package` and `final`), but
 image used is `alpine` (instead of Ubuntu one).
@@ -132,7 +132,7 @@ image used is `alpine` (instead of Ubuntu one).
 Uses `maven-jar-plugin` (configuration in `pom.xml:92-105`):
 * in `dependencies` stage to copy dependencies to `dependency` directory 
   in repository layout.
-* in `package` stage to build jar with manifest file containing main class and
+* in `package` stage to build jar with a manifest file containing main class and
   classpath (for `dependency` directory).
 
 In `final` stage dependency from `dependencies` are copied.
@@ -162,7 +162,7 @@ Running only dependencies:
 
 ###  #2 Running app (memory DAO) `docker-compose.memory.yml`
 
-Running the Todos app (memory version) only - available on 7070 port.
+Running the Todos app (memory version) only - available on port 7070.
 
 
 ###  #3 Running app (build from Dockerfile) `docker-compose.dockerfile.yml`
