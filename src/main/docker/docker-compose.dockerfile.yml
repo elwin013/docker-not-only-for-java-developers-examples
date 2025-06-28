@@ -1,7 +1,7 @@
 services:
   todos:
     build:
-      dockerfile: src/main/docker/Dockerfile-dependency
+      dockerfile: src/main/docker/oracle-openjdk/Dockerfile-dependency
       context: ./../../../
     ports:
       - "7070:7070"
