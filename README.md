@@ -66,17 +66,23 @@ Used libraries:
 
 ## Docker examples
 
-All dockerfiles and docker compose files are placed in `src/main/docker`.
+All dockerfiles and docker compose files are placed in `src/main/docker`:
+* [Oracle OpenJDK](https://jdk.java.net/) examples in `src/main/docker/oracle-openjdk`
+* [Eclipse Temurin](https://adoptium.net/) examples in `src/main/docker/eclipse-temurin`
 
-Tested with both Oracle OpenJDK 21 images and Temurin one.
+Examples were tested with both JDKs.
 
 ### #1 Simplest docker image with app (shaded) - `Dockerfile-outsidejar`
 
 Simplest image  - requires built uber jar in target.
 
-To build:
+To build with Oracle OpenJDK:
 1. `./mvnw package -DskipTests`
-2. `docker build -f src/main/docker/Dockerfile-outsidejar -t todoapp-outsidejar .`
+2. `docker build -f src/main/docker/oracle-openjdk/Dockerfile-outsidejar -t todoapp-outsidejar .`
+
+To build with Eclipse Temurin:
+1. `./mvnw package -DskipTests`
+2. `docker build -f src/main/docker/eclipse-temurin/Dockerfile-outsidejar -t todoapp-outsidejar .`
 
 To run:
 1. `docker run -p 7070:7070 todoapp-outsidejar:latest -it`
@@ -88,8 +94,11 @@ Solves "works on my machine" problem - app is built in the container.
 
 Requires both JDK and JRE - to build and run. There is no cache.
 
-To build:
-1. `docker build -f src/main/docker/Dockerfile-insidejar -t todoapp-naive .`
+To build with Oracle OpenJDK:
+1. `docker build -f src/main/docker/oracle-openjdk/Dockerfile-insidejar -t todoapp-naive .`
+
+To build with Eclipse Temurin:
+1. `docker build -f src/main/docker/eclipse-temurin/Dockerfile-insidejar -t todoapp-naive .`
 
 To run:
 1. `docker run -p 7070:7070 todoapp-naive:latest -it`
@@ -106,8 +115,11 @@ As a result the final image contains only the app (shaded, uber jar).
 Uber jar is created using `maven-shade-plugin` - classes from all dependencies
 are put in the final jar.
 
-To build:
-1. `docker build -f src/main/docker/Dockerfile-shaded -t todoapp-multistage1 .`
+To build with Oracle OpenJDK:
+1. `docker build -f src/main/docker/oracle-openjdk/Dockerfile-shaded -t todoapp-multistage1 .`
+
+To build with Eclipse Temurin:
+1. `docker build -f src/main/docker/eclipse-temurin/Dockerfile-shaded -t todoapp-multistage1 .`
 
 To run:
 1. `docker run -p 7070:7070 todoapp-multistage1:latest -it`
@@ -127,8 +139,11 @@ In `final` stage dependency from `dependencies` are copied.
 
 As a result the final image contains only the app (shaded, uber jar).
 
-To build:
-1. `docker build -f src/main/docker/Dockerfile-dependency -t todoapp-multistage2 .`
+To build with Oracle OpenJDK:
+1. `docker build -f src/main/docker/oracle-openjdk/Dockerfile-dependency -t todoapp-multistage2 .`
+
+To build with Eclipse Temurin:
+1. `docker build -f src/main/docker/eclipse-temurin/Dockerfile-dependency -t todoapp-multistage2 .`
 
 To run:
 1. `docker run -it --rm -p 7070:7070 todoapp-multistage2:latest`
