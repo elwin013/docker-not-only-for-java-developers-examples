@@ -1,4 +1,4 @@
-FROM openjdk:21 AS dependencies
+FROM container-registry.oracle.com/java/openjdk:25 AS dependencies
 
 WORKDIR /build
 COPY --chmod=0755 mvnw mvnw
@@ -16,7 +16,7 @@ RUN --mount=type=bind,source=pom.xml,target=pom.xml \
     ./mvnw package -DskipTests
 
 
-FROM openjdk:21-slim AS final
+FROM container-registry.oracle.com/java/openjdk:25 AS final
 
 COPY --from=package /build/target/app-shaded.jar ./app.jar
 

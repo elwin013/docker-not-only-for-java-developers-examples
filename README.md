@@ -40,7 +40,7 @@ To run with CPU/memory limits:
 
 Inside run built jar with:
 
-`java ShowMxBeanCpuAndMemoryInfo`
+`java ShowMxBeanCpuAndMemoryInfo.java`
 
 We can combine it with `-XshowSettings:system` or set explicit number of processors: `-XX:ActiveProcessorCount=4`.
 
@@ -108,7 +108,7 @@ To run:
 Improved version of #2 - uses multiple stages:
 * download and cache dependencies (uses JDK image) in `dependencies` stage.
 * build and package app (uses JDK image) in `package` stage.
-* run app (uses JRE image) in `final` stage.
+* run app (uses JRE image) in `final` stage (OpenJDK example uses the same image as no JRE only image is provided).
 
 As a result, the final image contains only the app (shaded, uber jar).
 
